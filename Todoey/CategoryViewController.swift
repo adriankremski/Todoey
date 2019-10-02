@@ -8,33 +8,29 @@
 
 import UIKit
 import CoreData
+import RealmSwift
+import ChameleonFramework
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
 
-    var categories = [CategoryEntity]()
-    
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let realm = try! Realm()
+    var categories : Results<CategoryEntity>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.separatorStyle = .none
         loadItems()
     }
     
-    private func loadItems(with request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()) {
-        do {
-            categories = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
-        
+    private func loadItems() {
+        categories = realm.objects(CategoryEntity.self)
         tableView.reloadData()
     }
     
-    private func saveItems() {
+    private func save(category: CategoryEntity) {
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("Error saving context \(error)")
         }
@@ -42,16 +38,38 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func deleteCell(cellNumber: Int) {
+        if let categoryToDelete = self.categories?[cellNumber] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryToDelete)
+                }
+            } catch {
+                print(error)
+            }
+        } else {
+            fatalError("Could not delete cell")
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        if (categories?.count == 0) {
+            return 1
+        } else {
+            return categories?.count ?? 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        let category = categories[indexPath.row]
-        
-        cell.textLabel?.text = category.name
+        if categories?.count == 0 {
+            cell.textLabel?.text = "No Categories Added Yet"
+        } else if let category = categories?[indexPath.row] {
+            cell.textLabel?.text = category.name
+            cell.backgroundColor = UIColor(hexString: category.colorInHex)
+            cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: category.colorInHex)!, returnFlat: true)
+        }
         
         return cell
     }
@@ -62,12 +80,10 @@ class CategoryViewController: UITableViewController {
         let alert = UIAlertController(title: "Add Caregory", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
-            let newCategory = CategoryEntity(context: self.context)
+            let newCategory = CategoryEntity()
             newCategory.name = textField.text!
-            newCategory.items = []
-            
-            self.categories.append(newCategory)
-            self.saveItems()
+            newCategory.colorInHex = UIColor.randomFlat.hexValue()
+            self.save(category: newCategory)
         }
         
         alert.addTextField { (alertTextField) in
@@ -88,7 +104,7 @@ class CategoryViewController: UITableViewController {
         if (segue.identifier == "goToItems") {
             let controller = segue.destination as! TodoListViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-                controller.selectedCategory = categories[indexPath.row]
+                controller.selectedCategory = categories?[indexPath.row]
             }
         }
     }
