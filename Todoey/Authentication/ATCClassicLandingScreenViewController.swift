@@ -19,7 +19,7 @@ class ATCClassicLandingScreenViewController: UIViewController {
     private let tintColor = UIColor(hexString: "#E74C3C")
     private let subtitleColor = UIColor(hexString: "#464646")
     private let signUpButtonColor = UIColor(hexString: "#414665")
-    private let signUpButtonBorderColor = UIColor(hexString: "#B0B3C6")
+    private let signUpButtonBorderColor = UIColor(hexString: "#414665")
 
     private let titleFont = UIFont.boldSystemFont(ofSize: 30)
     private let subtitleFont = UIFont.boldSystemFont(ofSize: 18)

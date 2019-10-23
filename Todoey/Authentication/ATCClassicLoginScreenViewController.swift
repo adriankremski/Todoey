@@ -25,8 +25,8 @@ class ATCClassicLoginScreenViewController: UIViewController {
     private let buttonFont = UIFont.boldSystemFont(ofSize: 20)
 
     private let textFieldFont = UIFont.systemFont(ofSize: 16)
-    private let textFieldColor = UIColor(hexString: "#B0B3C6")
-    private let textFieldBorderColor = UIColor(hexString: "#B0B3C6")
+    private let textFieldColor = UIColor(hexString: "#414665")
+    private let textFieldBorderColor = UIColor(hexString: "#414665")
 
     private let separatorFont = UIFont.boldSystemFont(ofSize: 14)
     private let separatorTextColor = UIColor(hexString: "#464646")

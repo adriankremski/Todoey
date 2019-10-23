@@ -21,8 +21,8 @@ class ATCClassicSignUpViewController: UIViewController {
 
     private let tintColor = UIColor(hexString: "#E74C3C")
     private let backgroundColor: UIColor = .white
-    private let textFieldColor = UIColor(hexString: "#B0B3C6")
-    private let textFieldBorderColor = UIColor(hexString: "#B0B3C6")
+    private let textFieldColor = UIColor(hexString: "#414665")
+    private let textFieldBorderColor = UIColor(hexString: "#414665")
 
     private let titleFont = UIFont.boldSystemFont(ofSize: 30)
     private let textFieldFont = UIFont.systemFont(ofSize: 16)
