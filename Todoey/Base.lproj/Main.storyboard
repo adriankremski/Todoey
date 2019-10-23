@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZGv-Nj-tpv">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZGv-Nj-tpv">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,7 +25,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="il5-TK-ceE" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
-                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="il5-TK-ceE" id="WCa-4n-zst">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -53,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e2F-Ab-R1l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1974" y="38"/>
+            <point key="canvasLocation" x="3016" y="14"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="moF-gj-eRo">
@@ -63,7 +61,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Zjd-az-0CX">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="barTintColor" red="0.90588235294117647" green="0.29803921568627451" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -75,7 +74,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meB-Gu-9jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="396" y="43"/>
+            <point key="canvasLocation" x="897" y="13"/>
         </scene>
         <!--Todoey-->
         <scene sceneID="UsG-81-3pI">
@@ -87,7 +86,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="dS9-Iy-BtB" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dS9-Iy-BtB" id="Pcc-jD-fUR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -100,7 +99,7 @@
                             <outlet property="delegate" destination="aTd-Xz-U0S" id="qYE-Dw-tyc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="2RA-Wu-QZF">
+                    <navigationItem key="navigationItem" title="Todoey" largeTitleDisplayMode="never" id="2RA-Wu-QZF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="v1X-fL-AYv">
                             <connections>
                                 <action selector="addCategory:" destination="aTd-Xz-U0S" id="Yzs-bD-0Bn"/>
@@ -113,7 +112,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hL9-6p-CXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1171" y="43"/>
+            <point key="canvasLocation" x="2070" y="13"/>
         </scene>
     </scenes>
 </document>

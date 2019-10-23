@@ -7,10 +7,22 @@
 //
 
 import Foundation
-import RealmSwift
 
-class CategoryEntity: Object {
-    @objc dynamic var name: String = ""
-    @objc dynamic var colorInHex: String = ""
-    let tasks = List<TaskEntity>()
+struct CategoryEntity {
+    let name: String
+    let colorInHex: String
+    
+    var fields : [String : Any] {
+        [ "name": name, "colorInHex": colorInHex]
+    }
+    
+    init(name: String, colorInHex: String) {
+        self.name = name
+        self.colorInHex = colorInHex
+    }
+    
+    init(fields : [String : Any] ) {
+        self.name = fields["name"] as! String
+        self.colorInHex = fields["colorInHex"] as! String
+    }
 }

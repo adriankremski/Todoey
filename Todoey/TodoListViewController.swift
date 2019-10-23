@@ -7,95 +7,72 @@
 //
 
 import UIKit
-import RealmSwift
-import ChameleonFramework
+import Toaster
 
 class TodoListViewController: SwipeTableViewController {
 
-    let realm = try! Realm()
-    private var tasks : Results<TaskEntity>?
-    
-    private var originalBarTintColor: UIColor?
-    private var originalTintColor: UIColor?
-    private var originalLargeTitleTextAttributes: [NSAttributedString.Key : Any]?
-    
-    var selectedCategory : CategoryEntity? {
-        didSet {
-            loadItems()
-        }
-    }
+    private var taskManager: TaskManager?
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var selectedCategory : CategoryEntity?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        taskManager = TaskManager()
+        taskManager!.delegate = self
+        
+        if let category = selectedCategory {
+            taskManager?.loadTasks(categoryName: category.name)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let colorInHex = selectedCategory?.colorInHex else { fatalError() }
-        guard let navigationBar = navigationController?.navigationBar else { fatalError() }
-        
-        let categoryColor = UIColor(hexString: colorInHex)!
-        let contractColor = ContrastColorOf(categoryColor, returnFlat: true)
-        
         title = selectedCategory!.name
-        
-        originalBarTintColor = navigationBar.barTintColor
-        navigationBar.barTintColor = categoryColor
-        
-        originalTintColor = navigationBar.tintColor
-        navigationBar.tintColor = contractColor
-        
-        originalLargeTitleTextAttributes = navigationBar.largeTitleTextAttributes
-        navigationBar.largeTitleTextAttributes = [ NSAttributedString.Key.foregroundColor : contractColor]
-        
-        searchBar.barTintColor = categoryColor
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = originalBarTintColor
-        navigationController?.navigationBar.tintColor = originalTintColor
-        navigationController?.navigationBar.largeTitleTextAttributes = originalLargeTitleTextAttributes
+        searchBar.barTintColor = UIColor(selectedCategory!.colorInHex)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (tasks?.count == 0 && searchBar.text == "") {
+        let taskCount = taskManager!.tasksCount
+        
+        if (taskCount == 0 && searchBar.text == "") {
             return 1
         } else {
-            return tasks?.count ?? 0
+            return taskCount
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        if tasks?.count == 0 && searchBar.text == "" {
+        let taskCount = taskManager!.tasksCount
+        
+        if taskCount == 0 && searchBar.text == "" {
             cell.textLabel?.text = "No Tasks Added Yet"
             cell.accessoryType = .none
-        } else if let task = tasks?[indexPath.row], let count = tasks?.count{
+        } else if let task = taskManager?[indexPath.row] {
             cell.textLabel?.text = task.title
             cell.accessoryType = task.done ? .checkmark : .none
-            
+            cell.textLabel?.textColor = .white
             let categoryColorInHex = selectedCategory!.colorInHex
-            let backgroundColor = UIColor(hexString: categoryColorInHex)!.darken(byPercentage: CGFloat(CGFloat(indexPath.row) / CGFloat(count + 10)))!
+            let backgroundColor = UIColor(categoryColorInHex).darker(by: CGFloat(CGFloat(indexPath.row) / CGFloat(taskCount + 10)) * CGFloat(100))
             cell.backgroundColor = backgroundColor
-            cell.textLabel?.textColor = ContrastColorOf(backgroundColor, returnFlat: true)
         }
         
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let item = tasks?[indexPath.row] {
-            do {
-                try realm.write {
-                    item.done = !item.done
-                }
-            } catch {
-                print(error)
-            }
-        }
-        
+//        if let item = tasks?[indexPath.row] {
+//            do {
+//                try realm.write {
+//                    item.done = !item.done
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
+//
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -106,24 +83,9 @@ class TodoListViewController: SwipeTableViewController {
         let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
 
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            
-            if let category = self.selectedCategory {
-                let newItem = TaskEntity()
-                newItem.done = false
-                newItem.title = textField.text!
-                newItem.createdDate = Date()
-                newItem.colorInHex = UIColor.randomFlat.hexValue()
-                
-                do {
-                    try self.realm.write {
-                        category.tasks.append(newItem)
-                    }
-                    
-                    self.tableView.reloadData()
-                } catch {
-                    print(error)
-                }
-            }
+            let newItem = TaskEntity(title: textField.text!, colorInHex: "#FFFFFF", done: false)
+            self.taskManager?.saveTask(task: newItem)
+//                newItem.colorInHex = UIColor.randomFlat.hexValue()
         }
 
         alert.addTextField { (alertTextField) in
@@ -136,41 +98,75 @@ class TodoListViewController: SwipeTableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func loadItems() {
-        tasks = selectedCategory?.tasks.sorted(byKeyPath: "createdDate", ascending: false)
-        
-        tableView.reloadData()
-    }
-    
     override func deleteCell(cellNumber: Int) {
-        if let category = selectedCategory {
-            do {
-                try self.realm.write {
-                    category.tasks.remove(at: cellNumber)
-                }
-            } catch {
-                print(error)
-            }
-        } else {
-            fatalError("Could not delete cell")
-        }
+        taskManager?.removeTask(at: cellNumber)
     }
 }
 
+//MARK: - TaskManagerDelegate methods
+extension TodoListViewController : TaskManagerDelegate {
+    func onTasksLoaded(tasks: [TaskEntity]) {
+        self.tableView.reloadData()
+    }
+    
+    func onTasksLoadingError(error: Error) {
+        Toast(text: "Could not load tasks").show()
+    }
+    
+    func onTaskSaved(task: TaskEntity) {
+        Toast(text: "Task saved!").show()
+        self.tableView.reloadData()
+    }
+    
+    func onTaskSaveError(error: Error) {
+        Toast(text: "Could not save task").show()
+    }
+    
+    func onTaskRemoved(removedTask: TaskEntity) {
+        Toast(text: "Task removed!").show()
+        self.tableView.reloadData()
+    }
+    
+    func onTaskRemovalError(error: Error) {
+        Toast(text: "Could not remove task").show()
+    }
+}
 
-//MARK: - Saerch bar methods
-
+//MARK: - Search bar methods
 extension TodoListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            loadItems()
+        if let category = self.selectedCategory, searchBar.text?.count == 0 {
+            taskManager?.loadTasks(categoryName: category.name)
 
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
         } else {
-            tasks = tasks?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "createdDate", ascending: false)
-            tableView.reloadData()
+            taskManager?.search(for: searchBar.text!)
+        }
+    }
+}
+
+//MARK: - Color extension
+extension UIColor {
+
+    func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: abs(percentage) )
+    }
+
+    func darker(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: -1 * abs(percentage) )
+    }
+
+    func adjust(by percentage: CGFloat = 30.0) -> UIColor? {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return UIColor(red: min(red + percentage/100, 1.0),
+                           green: min(green + percentage/100, 1.0),
+                           blue: min(blue + percentage/100, 1.0),
+                           alpha: alpha)
+        } else {
+            return nil
         }
     }
 }

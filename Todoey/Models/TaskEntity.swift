@@ -9,10 +9,26 @@
 import Foundation
 import RealmSwift
 
-class TaskEntity: Object {
-    @objc dynamic var title: String = ""
-    @objc dynamic var done: Bool = false
-    @objc dynamic var createdDate: Date?
-    @objc dynamic var colorInHex: String = ""
-    var parentCategory = LinkingObjects(fromType: CategoryEntity.self, property: "tasks")
+class TaskEntity  {
+    var title: String = ""
+    var done: Bool = false
+//    var createdDate: Date?
+    var colorInHex: String = ""
+//    var parentCategory = LinkingObjects(fromType: CategoryEntity.self, property: "tasks")
+    
+    var fields : [String : Any] {
+        [ "title": title, "colorInHex": colorInHex, "done": done]
+    }
+    
+    init(title: String, colorInHex: String, done: Bool) {
+        self.title = title
+        self.colorInHex = colorInHex
+        self.done = done
+    }
+    
+    init(fields : [String : Any] ) {
+        self.title = fields["title"] as! String
+        self.colorInHex = fields["colorInHex"] as! String
+        self.done = fields["done"] as! Bool
+    }
 }

@@ -9,8 +9,15 @@ target 'Todoey' do
 
   pod 'SwipeCellKit'
   
-  pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+  pod 'Firebase/Core'
+  
+  pod 'Firebase/Firestore'
+  
+  pod 'Firebase/Auth'
+  
+  pod 'FirebaseUI/Auth'
 
-  # Pods for Todoey
-
+  pod 'UIColor_Hex_Swift'
+  
+  pod 'Toaster'
 end
