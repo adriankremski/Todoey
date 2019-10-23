@@ -13,7 +13,6 @@ import Toaster
 
 class CategoryViewController: SwipeTableViewController {
 
-    let colorsSource = ColorsSource()
     var categoryManager : CategoryManager?
 
     override func viewDidLoad() {
@@ -54,7 +53,7 @@ class CategoryViewController: SwipeTableViewController {
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             let category = CategoryEntity(
                 name: textField.text!,
-                colorInHex: self.colorsSource.randomColorInHex()
+                colorInHex: "#E74C3C"
             )
             
             self.categoryManager?.save(category)

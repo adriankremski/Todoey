@@ -19,7 +19,7 @@ class ATCClassicLoginScreenViewController: UIViewController {
     @IBOutlet var backButton: UIButton!
 
     private let backgroundColor: UIColor = .white
-    private let tintColor = UIColor(hexString: "#ff5a66")
+    private let tintColor = UIColor(hexString: "#E74C3C")
 
     private let titleFont = UIFont.boldSystemFont(ofSize: 30)
     private let buttonFont = UIFont.boldSystemFont(ofSize: 20)
@@ -31,6 +31,8 @@ class ATCClassicLoginScreenViewController: UIViewController {
     private let separatorFont = UIFont.boldSystemFont(ofSize: 14)
     private let separatorTextColor = UIColor(hexString: "#464646")
 
+    private let loginManager = FirebaseAuthManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         backButton.setImage(UIImage.localImage("arrow-back-icon", template: true), for: .normal)
@@ -96,6 +98,19 @@ class ATCClassicLoginScreenViewController: UIViewController {
     }
 
     @objc func didTapLoginButton() {
+        guard let email = contactPointTextField.text, let password = passwordTextField.text else { return }
+        loginManager.signIn(email: email, pass: password) {[weak self] (success) in
+            guard let `self` = self else { return }
+            var message: String = ""
+            if (success) {
+                message = "User was sucessfully logged in."
+            } else {
+                message = "There was an error."
+            }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.display(alertController: alertController)
+        }
     }
 
     @objc func didTapFacebookButton() {

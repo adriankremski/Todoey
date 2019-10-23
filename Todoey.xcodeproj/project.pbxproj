@@ -20,6 +20,7 @@
 		7812BEC323603A63001077D4 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812BEBD23603A62001077D4 /* UITextField.swift */; };
 		7812BEC423603A63001077D4 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812BEBE23603A62001077D4 /* UIImage.swift */; };
 		7812BEC523603A63001077D4 /* UIViewController+ATCAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812BEBF23603A63001077D4 /* UIViewController+ATCAdditions.swift */; };
+		7812BEC923603F30001077D4 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7812BEC823603F30001077D4 /* FirebaseAuthManager.swift */; };
 		7850BE4D234205DD0009445B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7850BE4C234205DD0009445B /* AppDelegate.swift */; };
 		7850BE4F234205DD0009445B /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7850BE4E234205DD0009445B /* TodoListViewController.swift */; };
 		7850BE52234205DD0009445B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7850BE50234205DD0009445B /* Main.storyboard */; };
@@ -30,7 +31,6 @@
 		7850BE8E2343D1290009445B /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7850BE8D2343D1290009445B /* TaskEntity.swift */; };
 		7850BE922344FCE70009445B /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7850BE912344FCE70009445B /* SwipeTableViewController.swift */; };
 		78AA13AD235E199F00DE4F02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78AA13AC235E199E00DE4F02 /* GoogleService-Info.plist */; };
-		78AA13B1235E39CC00DE4F02 /* ColorsSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA13B0235E39CC00DE4F02 /* ColorsSource.swift */; };
 		78AA13B3235E3ECB00DE4F02 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA13B2235E3ECB00DE4F02 /* UIColorExtension.swift */; };
 		78AA13B5235EF99900DE4F02 /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA13B4235EF99900DE4F02 /* CategoryManager.swift */; };
 		78AA13B7235F21EA00DE4F02 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AA13B6235F21EA00DE4F02 /* TaskManager.swift */; };
@@ -50,6 +50,7 @@
 		7812BEBD23603A62001077D4 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		7812BEBE23603A62001077D4 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		7812BEBF23603A63001077D4 /* UIViewController+ATCAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ATCAdditions.swift"; sourceTree = "<group>"; };
+		7812BEC823603F30001077D4 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		7850BE49234205DD0009445B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7850BE4C234205DD0009445B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7850BE4E234205DD0009445B /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +63,6 @@
 		7850BE8D2343D1290009445B /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
 		7850BE912344FCE70009445B /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		78AA13AC235E199E00DE4F02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		78AA13B0235E39CC00DE4F02 /* ColorsSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsSource.swift; sourceTree = "<group>"; };
 		78AA13B2235E3ECB00DE4F02 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		78AA13B4235EF99900DE4F02 /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		78AA13B6235F21EA00DE4F02 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -163,10 +163,10 @@
 			children = (
 				7850BE8B2343D11C0009445B /* CategoryEntity.swift */,
 				7850BE8D2343D1290009445B /* TaskEntity.swift */,
-				78AA13B0235E39CC00DE4F02 /* ColorsSource.swift */,
 				78AA13B2235E3ECB00DE4F02 /* UIColorExtension.swift */,
 				78AA13B4235EF99900DE4F02 /* CategoryManager.swift */,
 				78AA13B6235F21EA00DE4F02 /* TaskManager.swift */,
+				7812BEC823603F30001077D4 /* FirebaseAuthManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -347,9 +347,9 @@
 				7812BEB323603A19001077D4 /* ATCClassicLandingScreenViewController.swift in Sources */,
 				7850BE8E2343D1290009445B /* TaskEntity.swift in Sources */,
 				78AA13B3235E3ECB00DE4F02 /* UIColorExtension.swift in Sources */,
-				78AA13B1235E39CC00DE4F02 /* ColorsSource.swift in Sources */,
 				7812BEC323603A63001077D4 /* UITextField.swift in Sources */,
 				7850BE4D234205DD0009445B /* AppDelegate.swift in Sources */,
+				7812BEC923603F30001077D4 /* FirebaseAuthManager.swift in Sources */,
 				7850BE922344FCE70009445B /* SwipeTableViewController.swift in Sources */,
 				7850BE8C2343D11C0009445B /* CategoryEntity.swift in Sources */,
 				7812BEB423603A19001077D4 /* ATCClassicSignUpViewController.swift in Sources */,
