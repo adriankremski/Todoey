@@ -22,16 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        // 1
-        let storyboard = UIStoryboard(name: "Login", bundle: .main)
-
-        // 2
-        if let initialViewController = storyboard.instantiateInitialViewController() {
-            // 3
-            window?.rootViewController = initialViewController
-            // 4
-            window?.makeKeyAndVisible()
-        }
+        window = UIWindow(frame: UIScreen.main.bounds)
+               window?.rootViewController = UINavigationController(rootViewController: ATCClassicLandingScreenViewController(nibName: "ATCClassicLandingScreenViewController", bundle: nil))
+               window?.makeKeyAndVisible()
+               return true
 
         return true
     }
