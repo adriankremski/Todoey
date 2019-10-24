@@ -29,7 +29,6 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         title = selectedCategory!.name
-        searchBar.barTintColor = UIColor(selectedCategory!.colorInHex)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,14 +134,16 @@ extension TodoListViewController : TaskManagerDelegate {
 //MARK: - Search bar methods
 extension TodoListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let category = self.selectedCategory, searchBar.text?.count == 0 {
-            taskManager?.loadTasks(categoryName: category.name)
+        if searchBar.text?.count == 0 {
+            taskManager?.search(for: "")
+            tableView.reloadData()
 
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
         } else {
             taskManager?.search(for: searchBar.text!)
+            tableView.reloadData()
         }
     }
 }

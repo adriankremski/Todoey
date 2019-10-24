@@ -11,15 +11,25 @@ import FirebaseFirestore
 
 class TaskManager {
     private var tasks : [TaskEntity]?
+    private var lastQuery = ""
+
     private var tasksReference: CollectionReference!
     var delegate: TaskManagerDelegate?
     
     var tasksCount: Int {
-        tasks?.count ?? 0
+        getTasks()?.count ?? 0
     }
     
     subscript(position: Int) -> TaskEntity? {
-        tasks?[position]
+        getTasks()?[position]
+    }
+    
+    private func getTasks() -> [TaskEntity]? {
+        if !lastQuery.isEmpty {
+            return tasks?.filter({ (task) -> Bool in task.title.starts(with: lastQuery)})
+        } else {
+            return tasks
+        }
     }
     
     func loadTasks(categoryName: String) {
@@ -40,6 +50,7 @@ class TaskManager {
     }
     
     func search(for query: String) {
+        lastQuery = query
 //        tasks = tasks?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "createdDate", ascending: false)
         //            tableView.reloadData()
     }
