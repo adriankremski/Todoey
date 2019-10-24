@@ -62,18 +62,11 @@ class TodoListViewController: SwipeTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let item = tasks?[indexPath.row] {
-//            do {
-//                try realm.write {
-//                    item.done = !item.done
-//                }
-//            } catch {
-//                print(error)
-//            }
-//        }
-//
-        tableView.reloadData()
-        tableView.deselectRow(at: indexPath, animated: true)
+        if let item = taskManager?[indexPath.row] {
+            item.done = !item.done
+            tableView.deselectRow(at: indexPath, animated: true)
+            self.taskManager?.updateTask(task: item)
+        }
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -84,7 +77,6 @@ class TodoListViewController: SwipeTableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let newItem = TaskEntity(title: textField.text!, colorInHex: "#FFFFFF", done: false)
             self.taskManager?.saveTask(task: newItem)
-//                newItem.colorInHex = UIColor.randomFlat.hexValue()
         }
 
         alert.addTextField { (alertTextField) in

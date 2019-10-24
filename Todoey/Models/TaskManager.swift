@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class TaskManager {
     private var tasks : [TaskEntity]?
@@ -33,8 +34,8 @@ class TaskManager {
     }
     
     func loadTasks(categoryName: String) {
-        tasksReference = Firestore.firestore().collection("categories").document(categoryName).collection("tasks")
-        
+        tasksReference = Firestore.firestore().collection("users").document(Auth.auth().currentUser!.uid).collection("categories").document(categoryName).collection("tasks")
+
         tasksReference.getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting tasks: \(error)")
@@ -51,8 +52,18 @@ class TaskManager {
     
     func search(for query: String) {
         lastQuery = query
-//        tasks = tasks?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "createdDate", ascending: false)
-        //            tableView.reloadData()
+    }
+    
+    func updateTask(task: TaskEntity) {
+        tasksReference.document(task.title).setData(task.fields) { (error) in
+            if let error = error {
+                print("Error writing document: \(error)")
+                self.delegate?.onTaskSaveError(error: error)
+            } else {
+                print("Task successfully written!")
+                self.delegate?.onTaskSaved(task: task)
+            }
+        }
     }
     
     func saveTask(task: TaskEntity) {

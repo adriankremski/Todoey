@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class CategoryManager {
     private var categories : [CategoryEntity]?
@@ -23,7 +24,7 @@ class CategoryManager {
     }
     
     init() {
-        categoriesReference = Firestore.firestore().collection("categories")
+        categoriesReference = Firestore.firestore().collection("users").document(Auth.auth().currentUser!.uid).collection("categories")
     }
     
     func loadCategories() {
