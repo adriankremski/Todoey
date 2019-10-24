@@ -10,6 +10,20 @@ import Foundation
 import FirebaseAuth
 
 class FirebaseAuthManager {
+    func logout(block: (Error?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            block(nil)
+        } catch {
+            block(error)
+            print(error)
+        }
+    }
+    
+    func isLoggedIn() -> Bool{
+        return Auth.auth().currentUser != nil
+    }
+    
     func createUser(email: String, password: String, completionBlock: @escaping (_ success: Bool) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) {(authResult, error) in
             if let user = authResult?.user {

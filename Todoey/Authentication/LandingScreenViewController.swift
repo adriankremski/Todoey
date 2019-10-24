@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ATCClassicLandingScreenViewController: UIViewController {
+class LandingScreenViewController: UIViewController {
     @IBOutlet var logoImageView: UIImageView!
     @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
@@ -65,12 +65,12 @@ class ATCClassicLandingScreenViewController: UIViewController {
     }
 
     @objc private func didTapLoginButton() {
-        let loginVC = ATCClassicLoginScreenViewController(nibName: "ATCClassicLoginScreenViewController", bundle: nil)
+        let loginVC = LoginScreenViewController(nibName: "LoginScreenViewController", bundle: nil)
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
 
     @objc private func didTapSignUpButton() {
-        let signUpVC = ATCClassicSignUpViewController(nibName: "ATCClassicSignUpViewController", bundle: nil)
+        let signUpVC = SignUpViewController(nibName: "SignUpViewController", bundle: nil)
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
 }

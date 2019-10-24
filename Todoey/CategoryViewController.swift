@@ -14,6 +14,7 @@ import Toaster
 class CategoryViewController: SwipeTableViewController {
 
     var categoryManager : CategoryManager?
+    private let loginManager = FirebaseAuthManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,16 @@ class CategoryViewController: SwipeTableViewController {
         }
 
         return cell
+    }
+    
+    @IBAction func logout(_ sender: UIBarButtonItem) {
+        loginManager.logout() { (error) in
+            if (error == nil) {
+                Toast.init(text: "Logged out").show()
+                let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDel.showLoginPage()
+            }
+        }
     }
     
     @IBAction func addCategory(_ sender: UIBarButtonItem) {

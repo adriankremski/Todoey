@@ -16,19 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private let loginManager = FirebaseAuthManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-               window?.rootViewController = UINavigationController(rootViewController: ATCClassicLandingScreenViewController(nibName: "ATCClassicLandingScreenViewController", bundle: nil))
-               window?.makeKeyAndVisible()
-               return true
+        if (!loginManager.isLoggedIn()) {
+            showLoginPage()
+        } else {
+            showMainPage()
+        }
 
         return true
     }
 
+    func showLoginPage() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UINavigationController(rootViewController: LandingScreenViewController(nibName: "LandingScreenViewController", bundle: nil))
+        window?.makeKeyAndVisible()
+    }
+    
+    func showMainPage() {
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "mainViewController")
+        window!.rootViewController = centerVC
+        window!.makeKeyAndVisible()
+    }
 }
 

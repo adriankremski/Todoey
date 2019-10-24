@@ -56,7 +56,7 @@
         <!--Navigation Controller-->
         <scene sceneID="moF-gj-eRo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZGv-Nj-tpv" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainViewController" automaticallyAdjustsScrollViewInsets="NO" id="ZGv-Nj-tpv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Zjd-az-0CX">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -100,11 +100,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Todoey" largeTitleDisplayMode="never" id="2RA-Wu-QZF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="v1X-fL-AYv">
-                            <connections>
-                                <action selector="addCategory:" destination="aTd-Xz-U0S" id="Yzs-bD-0Bn"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Logout" id="YAp-sg-xLi">
+                                <connections>
+                                    <action selector="logout:" destination="aTd-Xz-U0S" id="1VH-hm-zZj"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="v1X-fL-AYv">
+                                <connections>
+                                    <action selector="addCategory:" destination="aTd-Xz-U0S" id="Yzs-bD-0Bn"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="dXr-bP-9iI" kind="show" identifier="goToItems" id="VJD-do-eBC"/>

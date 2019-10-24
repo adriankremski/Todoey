@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ATCClassicLoginScreenViewController" customModule="ChatApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginScreenViewController" customModule="Todoey" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="8NB-UE-ekP" id="9OE-QV-wHf"/>
                 <outlet property="contactPointTextField" destination="LlF-qr-eCs" id="CkI-vx-Ntb"/>
@@ -28,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K0-wN-Eon" userLabel="Container View">
-                    <rect key="frame" x="-0.5" y="10" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gb-hG-fuL">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -42,21 +40,19 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LlF-qr-eCs" userLabel="Contact Point Text Field" customClass="ATCTextField" customModule="ChatApp" customModuleProvider="target">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LlF-qr-eCs" userLabel="Contact Point Text Field" customClass="ATCTextField" customModule="Todoey" customModuleProvider="target">
                                             <rect key="frame" x="25" y="146" width="325" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="55" id="T8T-xu-bck"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sln-s1-Z9D" userLabel="Password Text Field" customClass="ATCTextField" customModule="ChatApp" customModuleProvider="target">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sln-s1-Z9D" userLabel="Password Text Field" customClass="ATCTextField" customModule="Todoey" customModuleProvider="target">
                                             <rect key="frame" x="25" y="225" width="325" height="55"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="55" id="9y5-Vm-CUp"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>

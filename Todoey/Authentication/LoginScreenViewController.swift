@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ATCClassicLoginScreenViewController: UIViewController {
+class LoginScreenViewController: UIViewController {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var passwordTextField: ATCTextField!
@@ -101,15 +101,15 @@ class ATCClassicLoginScreenViewController: UIViewController {
         guard let email = contactPointTextField.text, let password = passwordTextField.text else { return }
         loginManager.signIn(email: email, pass: password) {[weak self] (success) in
             guard let `self` = self else { return }
-            var message: String = ""
+
             if (success) {
-                message = "User was sucessfully logged in."
+                let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDel.showMainPage()
             } else {
-                message = "There was an error."
+                let alertController = UIAlertController(title: nil, message: "There was an error", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.display(alertController: alertController)
             }
-            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.display(alertController: alertController)
         }
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ATCClassicSignUpViewController: UIViewController {
+class SignUpViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var containerView: UIView!
     @IBOutlet var backButton: UIButton!
